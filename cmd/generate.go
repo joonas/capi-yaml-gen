@@ -40,13 +40,13 @@ func getInfraClusterYaml(infraProvider, cName, cNamespace string) (string, strin
 	return infraClusterYaml, infraClusterKind, infraProviderAPIVersion, err
 }
 
-func getBoostrapProviderConfigYaml(bsProvider, bsConfigName, cNamespace, k8sVersion string, isControlPlane bool, itemNumber int) (string, string, error) {
+func getBoostrapProviderConfigYaml(bsProvider, bsConfigName, cNamespace, k8sVersion string, isControlPlane bool, itemNumber int) (string, string, string, error) {
 	switch strings.ToLower((bsProvider)) {
 	case "kubeadm":
 		// TODO: use k8sversion but have to figure out if we need ClusterConfig/InitConfig or JoinConfig
 		return cabpk.GetBootstrapProviderConfig(bsConfigName, cNamespace, isControlPlane, itemNumber)
 	default:
-		return "", "", fmt.Errorf("Unsupported bootstrap provider %q", bsProvider)
+		return "", "", "", fmt.Errorf("Unsupported bootstrap provider %q", bsProvider)
 	}
 }
 
@@ -69,7 +69,7 @@ func printMachineYaml(p printMachineParams) {
 		machineName := fmt.Sprintf("%s-%d", p.namePrefix, i)
 
 		bsConfigName := fmt.Sprintf("%s-config", strings.ToLower(machineName))
-		bsConfigYAML, bsConfigKind, err := getBoostrapProviderConfigYaml(p.bootstrapProvider, bsConfigName, p.clusterNamespace, p.k8sVersion, p.isControlPlane, i)
+		bsConfigYAML, bsConfigKind, bsProviderAPIVersion, err := getBoostrapProviderConfigYaml(p.bootstrapProvider, bsConfigName, p.clusterNamespace, p.k8sVersion, p.isControlPlane, i)
 
 		infraMachineYaml, infraMachineKind, infraProviderVersion, err := getInfraMachineYaml(p.infraProvider,
 			machineName, p.clusterNamespace)
@@ -79,7 +79,7 @@ func printMachineYaml(p printMachineParams) {
 		}
 
 		coreMachineYaml, err := capi.GetCoreMachineYaml(
-			machineName, p.clusterNamespace, bsConfigName, bsConfigKind, p.k8sVersion,
+			machineName, p.clusterNamespace, bsConfigName, bsConfigKind, bsProviderAPIVersion, p.k8sVersion,
 			p.clusterName, infraMachineKind, infraProviderVersion, p.isControlPlane)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Failed to generate yaml for core machine, %v\n", err)

@@ -16,8 +16,6 @@ limitations under the License.
 package constants
 
 const (
-	BootstrapProviderAPIVersion = "bootstrap.cluster.x-k8s.io/v1alpha2"
-
 	CoreClusterKind = "Cluster"
 	CoreMachineKind = "Machine"
 

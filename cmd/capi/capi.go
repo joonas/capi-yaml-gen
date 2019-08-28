@@ -47,7 +47,7 @@ func GetCoreClusterYaml(name, namespace, infraClusterKind, infraProviderAPIVersi
 }
 
 // GetCoreMachineYaml returns yaml for CAPI machine object configured to be a controlplane or not
-func GetCoreMachineYaml(name, namespace, bsConfigName, bsConfigKind, version, clusterOwner,
+func GetCoreMachineYaml(name, namespace, bsConfigName, bsConfigKind, bsProviderAPIVersion, version, clusterOwner,
 	infraMachineKind, infraProviderAPIVersion string, controlPlane bool) (string, error) {
 	coreMachine := &clusterv1.Machine{}
 	coreMachine.Kind = constants.CoreMachineKind
@@ -66,7 +66,7 @@ func GetCoreMachineYaml(name, namespace, bsConfigName, bsConfigKind, version, cl
 		Bootstrap: clusterv1.Bootstrap{
 			ConfigRef: &v1.ObjectReference{
 				Kind:       bsConfigKind,
-				APIVersion: constants.BootstrapProviderAPIVersion,
+				APIVersion: bsProviderAPIVersion,
 				Name:       bsConfigName,
 				Namespace:  namespace,
 			},

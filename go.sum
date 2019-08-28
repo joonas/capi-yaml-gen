@@ -347,6 +347,7 @@ sigs.k8s.io/cluster-api-bootstrap-provider-kubeadm v0.0.0-20190822134432-e10c244
 sigs.k8s.io/cluster-api-bootstrap-provider-kubeadm v0.0.0-20190822134432-e10c244919aa/go.mod h1:Mbi56puHqpM37MhSyrj12HFJgArKsaNYyQebzCtlok4=
 sigs.k8s.io/cluster-api-bootstrap-provider-kubeadm v0.0.0-20190826125020-ad27480a10e7 h1:nirGFti0GNPZc4hHWjV0RFWKoXsWxEdNEkXVZXu6u/Y=
 sigs.k8s.io/cluster-api-bootstrap-provider-kubeadm v0.0.0-20190826125020-ad27480a10e7/go.mod h1:Mbi56puHqpM37MhSyrj12HFJgArKsaNYyQebzCtlok4=
+sigs.k8s.io/cluster-api-provider-aws v0.3.7 h1:LcEVeXps+1PNQRbrwr+ETgiXntTUHta0BAOPq1vhs7k=
 sigs.k8s.io/cluster-api-provider-docker v0.0.0-0.20190827143441-33201d009aa8/go.mod h1:3hfHwSaeDhRpB/u02aR8hen1abVL1Eqe2CvJB0c0sUo=
 sigs.k8s.io/cluster-api-provider-docker v0.1.1-0.20190827143441-33201d009aa8 h1:ht3on7/b9B/TSHix82akMC1J+axH/yeYNNsoTtxAkXI=
 sigs.k8s.io/cluster-api-provider-docker v0.1.1-0.20190827143441-33201d009aa8/go.mod h1:3hfHwSaeDhRpB/u02aR8hen1abVL1Eqe2CvJB0c0sUo=

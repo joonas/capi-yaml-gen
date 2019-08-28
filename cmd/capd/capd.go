@@ -26,7 +26,7 @@ import (
 func GetDockerClusterYaml(name, namespace string) (string, string, string, error) {
 	dockerCluster := &dockerv1.DockerCluster{}
 	dockerCluster.Kind = dockerCluster.Kind
-	dockerCluster.APIVersion = dockerv1.GroupVersion.Group
+	dockerCluster.APIVersion = dockerv1.GroupVersion.String()
 	dockerCluster.Name = name
 	dockerCluster.Namespace = namespace
 
@@ -42,7 +42,7 @@ func GetDockerClusterYaml(name, namespace string) (string, string, string, error
 func GetDockerMachineYaml(name, namespace string) (string, string, string, error) {
 	dockerMachine := &dockerv1.DockerMachine{}
 	dockerMachine.Kind = constants.DockerMachineKind
-	dockerMachine.APIVersion = dockerv1.GroupVersion.Group
+	dockerMachine.APIVersion = dockerv1.GroupVersion.String()
 	dockerMachine.Name = name
 	dockerMachine.Namespace = namespace
 
