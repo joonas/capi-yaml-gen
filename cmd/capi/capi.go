@@ -24,7 +24,7 @@ import (
 )
 
 // GetCoreClusterYaml returns yaml for CAPI cluster objects
-func GetCoreClusterYaml(name, namespace, infraClusterKind string) (string, error) {
+func GetCoreClusterYaml(name, namespace, infraClusterKind, infraProviderAPIVersion string) (string, error) {
 	coreCluster := &clusterv1.Cluster{}
 	coreCluster.Kind = constants.CoreClusterKind
 	coreCluster.Name = name
@@ -34,7 +34,7 @@ func GetCoreClusterYaml(name, namespace, infraClusterKind string) (string, error
 	coreCluster.Spec = clusterv1.ClusterSpec{
 		InfrastructureRef: &v1.ObjectReference{
 			Kind:       infraClusterKind,
-			APIVersion: constants.InfrastructureProviderAPIVersion,
+			APIVersion: infraProviderAPIVersion,
 			Name:       name,
 			Namespace:  namespace,
 		},
@@ -48,7 +48,7 @@ func GetCoreClusterYaml(name, namespace, infraClusterKind string) (string, error
 
 // GetCoreMachineYaml returns yaml for CAPI machine object configured to be a controlplane or not
 func GetCoreMachineYaml(name, namespace, bsConfigName, bsConfigKind, version, clusterOwner,
-	infraMachineKind string, controlPlane bool) (string, error) {
+	infraMachineKind, infraProviderAPIVersion string, controlPlane bool) (string, error) {
 	coreMachine := &clusterv1.Machine{}
 	coreMachine.Kind = constants.CoreMachineKind
 	coreMachine.APIVersion = coreMachine.GroupVersionKind().GroupVersion().String()
@@ -73,7 +73,7 @@ func GetCoreMachineYaml(name, namespace, bsConfigName, bsConfigKind, version, cl
 		},
 		InfrastructureRef: v1.ObjectReference{
 			Kind:       infraMachineKind,
-			APIVersion: constants.InfrastructureProviderAPIVersion,
+			APIVersion: infraProviderAPIVersion,
 			Namespace:  namespace,
 			Name:       name,
 		},

@@ -23,33 +23,33 @@ import (
 )
 
 // GetDockerClusterYaml generates yaml for a docker cluster
-func GetDockerClusterYaml(name, namespace string) (string, string, error) {
+func GetDockerClusterYaml(name, namespace string) (string, string, string, error) {
 	dockerCluster := &dockerv1.DockerCluster{}
 	dockerCluster.Kind = dockerCluster.Kind
-	dockerCluster.APIVersion = dockerCluster.GroupVersionKind().GroupVersion().String()
+	dockerCluster.APIVersion = dockerv1.GroupVersion.Group
 	dockerCluster.Name = name
 	dockerCluster.Namespace = namespace
 
 	yamlBytes, err := serialize.MarshalToYAML(dockerCluster)
 	if err != nil {
-		return "", "", err
+		return "", "", "", err
 	}
 
-	return string(yamlBytes), constants.DockerClusterKind, nil
+	return string(yamlBytes), constants.DockerClusterKind, dockerCluster.APIVersion, nil
 }
 
 // GetDockerMachineYaml generates yaml for a docker controlplane machine
-func GetDockerMachineYaml(name, namespace string) (string, string, error) {
+func GetDockerMachineYaml(name, namespace string) (string, string, string, error) {
 	dockerMachine := &dockerv1.DockerMachine{}
 	dockerMachine.Kind = constants.DockerMachineKind
-	dockerMachine.APIVersion = constants.InfrastructureProviderAPIVersion
+	dockerMachine.APIVersion = dockerv1.GroupVersion.Group
 	dockerMachine.Name = name
 	dockerMachine.Namespace = namespace
 
 	yamlBytes, err := serialize.MarshalToYAML(dockerMachine)
 	if err != nil {
-		return "", "", err
+		return "", "", "", err
 	}
 
-	return string(yamlBytes), constants.DockerMachineKind, nil
+	return string(yamlBytes), constants.DockerMachineKind, dockerMachine.APIVersion, nil
 }
