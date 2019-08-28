@@ -29,7 +29,7 @@ func GetCoreClusterYaml(name, namespace, infraClusterKind string) (string, error
 	coreCluster.Kind = constants.CoreClusterKind
 	coreCluster.Name = name
 	coreCluster.Namespace = namespace
-	coreCluster.APIVersion = constants.CoreAPIVersion
+	coreCluster.APIVersion = coreCluster.GroupVersionKind().GroupVersion().String()
 
 	coreCluster.Spec = clusterv1.ClusterSpec{
 		InfrastructureRef: &v1.ObjectReference{
@@ -51,7 +51,7 @@ func GetCoreMachineYaml(name, namespace, bsConfigName, bsConfigKind, version, cl
 	infraMachineKind string, controlPlane bool) (string, error) {
 	coreMachine := &clusterv1.Machine{}
 	coreMachine.Kind = constants.CoreMachineKind
-	coreMachine.APIVersion = constants.CoreAPIVersion
+	coreMachine.APIVersion = coreMachine.GroupVersionKind().GroupVersion().String()
 	coreMachine.Name = name
 	coreMachine.Namespace = namespace
 	lables := map[string]string{
